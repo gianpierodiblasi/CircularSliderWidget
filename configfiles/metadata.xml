@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entities>
+  <ExtensionPackages>
+    <ExtensionPackage 
+      name="CircularSliderWidget"
+      packageVersion="0.25.10"
+      vendor="Accenture Italy - Industry X"
+      description="Extension to visualize a circular slider"
+      minimumThingWorxVersion="8.3.0"
+      dependsOn=""> 
+    </ExtensionPackage>
+  </ExtensionPackages>
+  
+  <Widgets>
+    <Widget name="circularslider"> 
+      <UIResources> 
+        <FileResource description="" file="circularslider.ide.js" isDevelopment="true" isRuntime="false" type="JS"/> 
+        <FileResource description="" file="circularslider.ide.css" isDevelopment="true" isRuntime="false" type="CSS"/> 
+        <FileResource description="" file="circularslider.runtime.js" isDevelopment="false" isRuntime="true" type="JS"/> 
+        <FileResource description="" file="circularslider.runtime.css" isDevelopment="false" isRuntime="true" type="CSS"/> 
+      </UIResources> 
+    </Widget>     
+  </Widgets>
+</Entities>
