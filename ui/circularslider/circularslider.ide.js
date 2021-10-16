@@ -31,6 +31,24 @@ TW.IDE.Dialogs.CircularSliderCustomEditor = function () {
             "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobSelectedBorderColor' style='width:130px' class='CircularSliderCustomEditor_" + uid + "_knobSelectedBorderColor' value='" + widgetObj.properties['knobSelectedBorderColor'] + "'/>" +
             "    </div>" +
             "  </div>" +
+            "  <div style='display:flex'>" +
+            "    <div style='margin-right:5px'>" +
+            "      <label for='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor'>valuesSummaryFontColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor' style='width:130px' class='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor' value='" + widgetObj.properties['valuesSummaryFontColor'] + "'/>" +
+            "    </div>" +
+            "  </div>" +
+            "  <div style='display:flex;height:34%'>" +
+            "    <div style='margin-right:5px;width:100%;height:100%'>" +
+            "      <label for='CircularSliderCustomEditor_" + uid + "_knobsFormatFunction'>knobsFormatFunction</label>" +
+            "      <textarea id='CircularSliderCustomEditor_" + uid + "_knobsFormatFunction' style='width:100%;height:80%;resize:none;font-size:14px;font-family:monospaced;white-space:nowrap' class='CircularSliderCustomEditor_" + uid + "_knobsFormatFunction'>" + widgetObj.properties['knobsFormatFunction'] + "</textarea>" +
+            "    </div>" +
+            "  </div>" +
+            "  <div style='display:flex;height:34%'>" +
+            "    <div style='margin-right:5px;width:100%;height:100%'>" +
+            "      <label for='CircularSliderCustomEditor_" + uid + "_valuesSummaryFormatFunction'>valuesSummaryFormatFunction</label>" +
+            "      <textarea id='CircularSliderCustomEditor_" + uid + "_valuesSummaryFormatFunction' style='width:100%;height:80%;resize:none;font-size:14px;font-family:monospaced;white-space:nowrap' class='CircularSliderCustomEditor_" + uid + "_valuesSummaryFormatFunction'>" + widgetObj.properties['valuesSummaryFormatFunction'] + "</textarea>" +
+            "    </div>" +
+            "  </div>" +
             "</div>";
     return html;
   };
@@ -44,6 +62,9 @@ TW.IDE.Dialogs.CircularSliderCustomEditor = function () {
     widgetObj.setProperty('knobsFontColor', $('.CircularSliderCustomEditor_' + uid + '_knobsFontColor').val());
     widgetObj.setProperty('knobsBorderColor', $('.CircularSliderCustomEditor_' + uid + '_knobsBorderColor').val());
     widgetObj.setProperty('knobSelectedBorderColor', $('.CircularSliderCustomEditor_' + uid + '_knobSelectedBorderColor').val());
+    widgetObj.setProperty('valuesSummaryFontColor', $('.CircularSliderCustomEditor_' + uid + '_valuesSummaryFontColor').val());
+    widgetObj.setProperty('knobsFormatFunction', $('.CircularSliderCustomEditor_' + uid + '_knobsFormatFunction').val());
+    widgetObj.setProperty('valuesSummaryFormatFunction', $('.CircularSliderCustomEditor_' + uid + '_valuesSummaryFormatFunction').val());
     return true;
   };
 };
@@ -108,8 +129,8 @@ TW.IDE.Widgets.circularslider = function () {
           'baseType': 'INTEGER',
           'defaultValue': 15
         },
-        'knobsMaxFontSize': {
-          'description': 'The maximum font size of the knobs',
+        'knobsFontSize': {
+          'description': 'The font size of the knobs',
           'baseType': 'INTEGER',
           'defaultValue': 10
         },
@@ -141,7 +162,29 @@ TW.IDE.Widgets.circularslider = function () {
         'knobsFormatFunction': {
           'description': 'The function to define the format of the knobs values, the function has an input "value" and has to return a "result" value',
           'baseType': 'STRING',
-          'defaultValue': 'result = value'
+          'defaultValue': 'result = value;'
+        },
+        'showValuesSummary': {
+          'isVisible': true,
+          'baseType': 'BOOLEAN',
+          'isEditable': true,
+          'defaultValue': false,
+          'description': 'true to show a "summary" of all values'
+        },
+        'valuesSummaryFormatFunction': {
+          'description': 'The function to define the format of the "summary" of all values, the function has a sorted array input "values" and has to return a "result" value',
+          'baseType': 'STRING',
+          'defaultValue': 'result = values.toString();'
+        },
+        'valuesSummaryFontSize': {
+          'description': 'The font size of the "summary" of all values',
+          'baseType': 'INTEGER',
+          'defaultValue': 10
+        },
+        'valuesSummaryFontColor': {
+          'description': 'The font color of the "summary" of all values',
+          'baseType': 'STRING',
+          'defaultValue': '#787878'
         },
         'debugMode': {
           'isVisible': true,

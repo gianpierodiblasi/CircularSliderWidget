@@ -120,12 +120,14 @@ TW.Runtime.Widgets.circularslider = function () {
     var sliderStrokeWidth = thisWidget.getProperty('sliderStrokeWidth');
     var sliderBackgroundColor = thisWidget.getProperty('sliderBackgroundColor');
     var knobsRadius = thisWidget.getProperty('knobsRadius');
-    var knobsMaxFontSize = thisWidget.getProperty('knobsMaxFontSize');
+    var knobsFontSize = thisWidget.getProperty('knobsFontSize');
     var knobsBackgroundColor = thisWidget.getProperty('knobsBackgroundColor');
     var knobsFontColor = thisWidget.getProperty('knobsFontColor');
     var knobsBorderWidth = thisWidget.getProperty('knobsBorderWidth');
     var knobsBorderColor = thisWidget.getProperty('knobsBorderColor');
     var knobSelectedBorderColor = thisWidget.getProperty('knobSelectedBorderColor');
+    var knobsFormatFunction = thisWidget.getProperty('knobsFormatFunction');
+    var showValuesSummary = thisWidget.getProperty('showValuesSummary');
 
     var diff = max - min + 1;
 
@@ -141,6 +143,7 @@ TW.Runtime.Widgets.circularslider = function () {
       var y = canvas.height / 2;
 
       var ctx = canvas.getContext('2d');
+      ctx.font = knobsFontSize + "px sans-serif";
       ctx.lineWidth = sliderStrokeWidth;
       ctx.strokeStyle = sliderBackgroundColor;
       ctx.beginPath();
@@ -148,27 +151,12 @@ TW.Runtime.Widgets.circularslider = function () {
       ctx.stroke();
 
       var values = [];
-      var valuesFormatted = [];
-      var fontSize = knobsMaxFontSize;
       for (var knobN = 1; knobN <= numberOfKnobs; knobN++) {
-        var ok = false;
         values[knobN] = thisWidget.getProperty('Value' + knobN);
 
-        var knobsFormatFunction = thisWidget.getProperty('knobsFormatFunction');
         var completeCode = "try {var result;var value = " + values[knobN] + ";" + knobsFormatFunction + "} catch (exception) {console.log(exception);}";
         eval(completeCode);
-        valuesFormatted[knobN] = result;
 
-        while (!ok) {
-          ctx.font = fontSize + "px sans-serif";
-          ok = ctx.measureText(valuesFormatted[knobN]).width < 2 * (knobsRadius - knobsBorderWidth - 2);
-          if (!ok) {
-            fontSize--;
-          }
-        }
-      }
-
-      for (var knobN = 1; knobN <= numberOfKnobs; knobN++) {
         var angle = TWO_PI * (values[knobN] - min) / diff - HALF_PI + startAngle;
         var xx = radius * Math.cos(angle);
         var yy = radius * Math.sin(angle);
@@ -187,7 +175,24 @@ TW.Runtime.Widgets.circularslider = function () {
         ctx.textBaseline = "middle";
         ctx.lineWidth = 1;
         ctx.fillStyle = knobsFontColor;
-        ctx.fillText(valuesFormatted[knobN], x + xx - ctx.measureText(valuesFormatted[knobN]).width / 2, y + yy);
+        ctx.fillText(result, x + xx - ctx.measureText(result).width / 2, y + yy);
+      }
+
+      if (showValuesSummary) {
+        var valuesSummaryFormatFunction = thisWidget.getProperty('valuesSummaryFormatFunction');
+        var valuesSummaryFontSize = thisWidget.getProperty('valuesSummaryFontSize');
+        var valuesSummaryFontColor = thisWidget.getProperty('valuesSummaryFontColor');
+
+        values = values.slice(1);
+        values.sort((o1, o2) => o1 - o2);
+        var completeCode = "try {var result;" + valuesSummaryFormatFunction + "} catch (exception) {console.log(exception);}";
+        eval(completeCode);
+
+        ctx.font = valuesSummaryFontSize + "px sans-serif";
+        ctx.textBaseline = "middle";
+        ctx.lineWidth = 1;
+        ctx.fillStyle = valuesSummaryFontColor;
+        ctx.fillText(result, x - ctx.measureText(result).width / 2, y);
       }
     }
   };
