@@ -25,6 +25,8 @@ TW.Runtime.Widgets.circularslider = function () {
   };
 
   this.afterRender = function () {
+    var shift = angle => angle < 0 ? angle + TWO_PI : angle > TWO_PI ? angle - TWO_PI : angle;
+
     var debugMode = thisWidget.getProperty('debugMode');
     var numberOfKnobs = thisWidget.getProperty('numberOfKnobs');
     var startAngle = thisWidget.getProperty('startAngle') * degToRad;
@@ -39,21 +41,17 @@ TW.Runtime.Widgets.circularslider = function () {
       var min = thisWidget.getProperty('min');
       var max = thisWidget.getProperty('max');
       var diff = max - min + 1;
-
+      var offset = TWO_PI / (2 * diff);
+      
       var x = canvas.width / 2;
       var y = canvas.height / 2;
 
       if (editing) {
         var deltaX = event.offsetX - x;
         var deltaY = event.offsetY - y;
-        var angle = Math.atan2(deltaY, deltaX) + HALF_PI;
-        if (angle < 0) {
-          angle += TWO_PI;
-        }
-        angle -= startAngle;
-        if (angle < 0) {
-          angle += TWO_PI;
-        }
+        var angle = shift(Math.atan2(deltaY, deltaX) + HALF_PI);
+        angle = shift(angle - startAngle);
+        angle = shift(angle + offset);
 
         var oldValue = thisWidget.getProperty('Value' + markerIndex);
         var newValue = Math.floor(diff * angle / TWO_PI + min);
