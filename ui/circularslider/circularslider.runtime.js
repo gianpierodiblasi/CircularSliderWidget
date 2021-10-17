@@ -42,7 +42,7 @@ TW.Runtime.Widgets.circularslider = function () {
       var max = thisWidget.getProperty('max');
       var diff = max - min + 1;
       var offset = TWO_PI / (2 * diff);
-      
+
       var x = canvas.width / 2;
       var y = canvas.height / 2;
 
@@ -67,14 +67,16 @@ TW.Runtime.Widgets.circularslider = function () {
             if (newValue !== prevValue && newValue !== nextValue) {
               thisWidget.setProperty("Value" + markerIndex, newValue);
               thisWidget.jqElement.triggerHandler('ValuesChanged');
+              thisWidget.draw();
             }
           } else {
             thisWidget.setProperty("Value" + markerIndex, newValue);
             thisWidget.jqElement.triggerHandler('ValuesChanged');
+            thisWidget.draw();
           }
         }
       } else {
-        markerIndex = -1;
+        var newMarkerIndex = -1;
 
         var radius = Math.min(canvas.width, canvas.height) / 2 - sliderStrokeWidth;
 
@@ -88,12 +90,15 @@ TW.Runtime.Widgets.circularslider = function () {
           var yyy = y + yy - event.offsetY;
 
           if (Math.sqrt(xxx * xxx + yyy * yyy) < knobsRadius) {
-            markerIndex = knobN;
+            newMarkerIndex = knobN;
           }
         }
-      }
 
-      thisWidget.draw();
+        if (newMarkerIndex !== markerIndex) {
+          markerIndex = newMarkerIndex;
+          thisWidget.draw();
+        }
+      }
     };
 
     canvas.onmousedown = function (event) {
