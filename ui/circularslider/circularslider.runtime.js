@@ -8,6 +8,7 @@ TW.Runtime.Widgets.circularslider = function () {
 
   var editing = false;
   var markerIndex = -1;
+  var markerAngle = -1;
 
   this.runtimeProperties = function () {
     return {
@@ -32,6 +33,7 @@ TW.Runtime.Widgets.circularslider = function () {
     var startAngle = thisWidget.getProperty('startAngle') * degToRad;
     var sliderStrokeWidth = thisWidget.getProperty('sliderStrokeWidth');
     var knobsRadius = thisWidget.getProperty('knobsRadius');
+    var animation = thisWidget.getProperty('animation');
 
     var div = $('.widget-circularslider-' + uid)[0];
     new ResizeObserver(thisWidget.draw).observe(div);
@@ -49,12 +51,12 @@ TW.Runtime.Widgets.circularslider = function () {
       if (editing) {
         var deltaX = event.offsetX - x;
         var deltaY = event.offsetY - y;
-        var angle = shift(Math.atan2(deltaY, deltaX) + HALF_PI);
-        angle = shift(angle - startAngle);
-        angle = shift(angle + offset);
+        markerAngle = shift(Math.atan2(deltaY, deltaX) + HALF_PI);
+        markerAngle = shift(markerAngle - startAngle);
+        markerAngle = shift(markerAngle + offset);
 
         var oldValue = thisWidget.getProperty('Value' + markerIndex);
-        var newValue = Math.floor(diff * angle / TWO_PI + min);
+        var newValue = Math.floor(diff * markerAngle / TWO_PI + min);
         if (oldValue !== newValue) {
           if (numberOfKnobs > 1) {
             var prevValue = thisWidget.getProperty('Value' + (markerIndex > 1 ? markerIndex - 1 : numberOfKnobs));
@@ -68,12 +70,16 @@ TW.Runtime.Widgets.circularslider = function () {
               thisWidget.setProperty("Value" + markerIndex, newValue);
               thisWidget.jqElement.triggerHandler('ValuesChanged');
               thisWidget.draw();
+            } else if (animation === "SMOOTH") {
+              thisWidget.draw();
             }
           } else {
             thisWidget.setProperty("Value" + markerIndex, newValue);
             thisWidget.jqElement.triggerHandler('ValuesChanged');
             thisWidget.draw();
           }
+        } else if (animation === "SMOOTH") {
+          thisWidget.draw();
         }
       } else {
         var newMarkerIndex = -1;
@@ -109,6 +115,10 @@ TW.Runtime.Widgets.circularslider = function () {
 
     canvas.onmouseup = function (event) {
       editing = false;
+
+      if (animation === "SMOOTH") {
+        thisWidget.draw();
+      }
     };
   };
 
@@ -131,8 +141,10 @@ TW.Runtime.Widgets.circularslider = function () {
     var knobSelectedBorderColor = thisWidget.getProperty('knobSelectedBorderColor');
     var knobsFormatFunction = thisWidget.getProperty('knobsFormatFunction');
     var showValuesSummary = thisWidget.getProperty('showValuesSummary');
+    var animation = thisWidget.getProperty('animation');
 
     var diff = max - min + 1;
+    var offset = TWO_PI / (2 * diff);
 
     var div = $('.widget-circularslider-' + uid)[0];
     var canvas = $('.widget-circularslider-canvas-' + uid)[0];
@@ -160,7 +172,13 @@ TW.Runtime.Widgets.circularslider = function () {
         var completeCode = "try {var result;var value = " + values[knobN] + ";" + knobsFormatFunction + "} catch (exception) {console.log(exception);}";
         eval(completeCode);
 
-        var angle = TWO_PI * (values[knobN] - min) / diff - HALF_PI + startAngle;
+        var angle;
+        if (editing && animation === "SMOOTH" && markerIndex === knobN) {
+          angle = markerAngle - HALF_PI + startAngle - offset;
+        } else {
+          angle = TWO_PI * (values[knobN] - min) / diff - HALF_PI + startAngle;
+        }
+
         var xx = radius * Math.cos(angle);
         var yy = radius * Math.sin(angle);
 

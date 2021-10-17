@@ -186,6 +186,17 @@ TW.IDE.Widgets.circularslider = function () {
           'baseType': 'STRING',
           'defaultValue': '#787878'
         },
+        'animation': {
+          'isVisible': true,
+          'baseType': 'STRING',
+          'isEditable': true,
+          'description': 'The animation',
+          'defaultValue': 'STEP',
+          'selectOptions': [
+            {value: 'STEP', text: 'Step'},
+            {value: 'SMOOTH', text: 'Smooth'}
+          ]
+        },
         'debugMode': {
           'isVisible': true,
           'baseType': 'BOOLEAN',
