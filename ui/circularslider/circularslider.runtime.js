@@ -179,6 +179,7 @@ TW.Runtime.Widgets.circularslider = function () {
     var knobsFontSize = thisWidget.getProperty('knobsFontSize');
     var knobsBackgroundColor = thisWidget.getProperty('knobsBackgroundColor');
     var knobsFontColor = thisWidget.getProperty('knobsFontColor');
+    var knobsFontFamily = thisWidget.getProperty('knobsFontFamily');
     var knobsBorderWidth = thisWidget.getProperty('knobsBorderWidth');
     var knobsBorderColor = thisWidget.getProperty('knobsBorderColor');
     var knobSelectedBorderColor = thisWidget.getProperty('knobSelectedBorderColor');
@@ -202,7 +203,7 @@ TW.Runtime.Widgets.circularslider = function () {
       var y = canvas.height / 2;
 
       var ctx = canvas.getContext('2d');
-      ctx.font = knobsFontSize + "px sans-serif";
+      ctx.font = knobsFontSize + "px " + knobsFontFamily;
       ctx.lineWidth = sliderStrokeWidth;
       ctx.strokeStyle = sliderBackgroundColor;
       ctx.beginPath();
@@ -285,13 +286,14 @@ TW.Runtime.Widgets.circularslider = function () {
         var valuesSummaryFormatFunction = thisWidget.getProperty('valuesSummaryFormatFunction');
         var valuesSummaryFontSize = thisWidget.getProperty('valuesSummaryFontSize');
         var valuesSummaryFontColor = thisWidget.getProperty('valuesSummaryFontColor');
+        var valuesSummaryFontFamily = thisWidget.getProperty('valuesSummaryFontFamily');
 
         values = values.slice(1);
         values.sort((o1, o2) => o1 - o2);
         var completeCode = "try {var result;" + valuesSummaryFormatFunction + "} catch (exception) {console.log(exception);}";
         eval(completeCode);
 
-        ctx.font = valuesSummaryFontSize + "px sans-serif";
+        ctx.font = valuesSummaryFontSize + "px " + valuesSummaryFontFamily;
         ctx.textBaseline = "middle";
         ctx.lineWidth = 1;
         ctx.fillStyle = valuesSummaryFontColor;

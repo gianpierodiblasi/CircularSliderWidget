@@ -159,6 +159,11 @@ TW.IDE.Widgets.circularslider = function () {
           'baseType': 'STRING',
           'defaultValue': '#787878'
         },
+        'knobsFontFamily': {
+          'description': 'The font family of the knobs',
+          'baseType': 'STRING',
+          'defaultValue': 'sans-serif'
+        },
         'knobsBorderWidth': {
           'description': 'The border width of the knobs',
           'baseType': 'INTEGER',
@@ -200,6 +205,11 @@ TW.IDE.Widgets.circularslider = function () {
           'description': 'The font color of the "summary" of all values',
           'baseType': 'STRING',
           'defaultValue': '#787878'
+        },
+        'valuesSummaryFontFamily': {
+          'description': 'The font family of the "summary" of all values',
+          'baseType': 'STRING',
+          'defaultValue': 'sans-serif'
         },
         'animation': {
           'isVisible': true,
