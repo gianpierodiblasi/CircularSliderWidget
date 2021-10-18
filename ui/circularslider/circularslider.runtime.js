@@ -297,7 +297,22 @@ TW.Runtime.Widgets.circularslider = function () {
         ctx.textBaseline = "middle";
         ctx.lineWidth = 1;
         ctx.fillStyle = valuesSummaryFontColor;
-        ctx.fillText(result, x - ctx.measureText(result).width / 2, y);
+
+        var split = result.split("\n");
+        var middle = Math.floor(split.length / 2);
+        var M = 1.5 * ctx.measureText('M').width;
+
+        if (split.length === 1) {
+          ctx.fillText(result, x - ctx.measureText(result).width / 2, y);
+        } else if (split.length % 2 === 0) {
+          for (var index = 0; index < split.length; index++) {
+            ctx.fillText(split[index], x - ctx.measureText(split[index]).width / 2, y - M * (middle - index) + M / 2);
+          }
+        } else {
+          for (var index = 0; index < split.length; index++) {
+            ctx.fillText(split[index], x - ctx.measureText(split[index]).width / 2, y - M * (middle - index));
+          }
+        }
       }
     }
   };
