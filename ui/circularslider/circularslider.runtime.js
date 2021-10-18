@@ -34,6 +34,12 @@ TW.Runtime.Widgets.circularslider = function () {
     var sliderStrokeWidth = thisWidget.getProperty('sliderStrokeWidth');
     var knobsRadius = thisWidget.getProperty('knobsRadius');
     var animation = thisWidget.getProperty('animation');
+    var showTicks = thisWidget.getProperty('showTicks');
+    var showTicksTooltip = thisWidget.getProperty('showTicksTooltip');
+    var primaryTicksStep = thisWidget.getProperty('primaryTicksStep');
+    var primaryTicksRadius = thisWidget.getProperty('primaryTicksRadius');
+    var secondaryTicksRadius = thisWidget.getProperty('secondaryTicksRadius');
+    var ticksTooltipFormatFunction = thisWidget.getProperty('ticksTooltipFormatFunction');
 
     var div = $('.widget-circularslider-' + uid)[0];
     new ResizeObserver(thisWidget.draw).observe(div);
@@ -83,6 +89,7 @@ TW.Runtime.Widgets.circularslider = function () {
         }
       } else {
         var newMarkerIndex = -1;
+        canvas.title = "";
 
         var radius = Math.min(canvas.width, canvas.height) / 2 - sliderStrokeWidth;
 
@@ -100,6 +107,40 @@ TW.Runtime.Widgets.circularslider = function () {
           }
         }
 
+        if (showTicks !== "NO" && showTicksTooltip) {
+          for (var value = min; value <= max; value++) {
+            var angle = TWO_PI * (value - min) / diff - HALF_PI + startAngle;
+            var xx = radius * Math.cos(angle);
+            var yy = radius * Math.sin(angle);
+
+            var xxx = x + xx - event.offsetX;
+            var yyy = y + yy - event.offsetY;
+
+            var show = false;
+            switch (showTicks) {
+              case 'PRIMARY':
+                show = (value - min) % primaryTicksStep === 0 && Math.sqrt(xxx * xxx + yyy * yyy) < primaryTicksRadius;
+                break;
+              case 'SECONDARY':
+                show = Math.sqrt(xxx * xxx + yyy * yyy) < secondaryTicksRadius;
+                break;
+              case 'ALL':
+                var isPrimary = (value - min) % primaryTicksStep === 0;
+                show =
+                        (isPrimary && Math.sqrt(xxx * xxx + yyy * yyy) < primaryTicksRadius)
+                        ||
+                        (!isPrimary && Math.sqrt(xxx * xxx + yyy * yyy) < secondaryTicksRadius);
+                break;
+            }
+
+            if (show) {
+              var completeCode = "try {var result;" + ticksTooltipFormatFunction + "} catch (exception) {console.log(exception);}";
+              eval(completeCode);
+              canvas.title = result;
+            }
+          }
+        }
+
         if (newMarkerIndex !== markerIndex) {
           markerIndex = newMarkerIndex;
           thisWidget.draw();
@@ -109,11 +150,13 @@ TW.Runtime.Widgets.circularslider = function () {
 
     canvas.onmousedown = function (event) {
       if (markerIndex !== -1) {
+        canvas.title = "";
         editing = true;
       }
     };
 
     canvas.onmouseup = function (event) {
+      canvas.title = "";
       editing = false;
 
       if (animation === "SMOOTH") {
@@ -142,6 +185,7 @@ TW.Runtime.Widgets.circularslider = function () {
     var knobsFormatFunction = thisWidget.getProperty('knobsFormatFunction');
     var showValuesSummary = thisWidget.getProperty('showValuesSummary');
     var animation = thisWidget.getProperty('animation');
+    var showTicks = thisWidget.getProperty('showTicks');
 
     var diff = max - min + 1;
     var offset = TWO_PI / (2 * diff);
@@ -164,6 +208,44 @@ TW.Runtime.Widgets.circularslider = function () {
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, 2 * Math.PI);
       ctx.stroke();
+
+      if (showTicks !== "NO") {
+        var primaryTicksStep = thisWidget.getProperty('primaryTicksStep');
+        var primaryTicksRadius = thisWidget.getProperty('primaryTicksRadius');
+        var secondaryTicksRadius = thisWidget.getProperty('secondaryTicksRadius');
+        var primaryTicksColor = thisWidget.getProperty('primaryTicksColor');
+        var secondaryTicksColor = thisWidget.getProperty('secondaryTicksColor');
+
+        for (var value = min; value <= max; value++) {
+          var angle = TWO_PI * (value - min) / diff - HALF_PI + startAngle;
+          var xx = radius * Math.cos(angle);
+          var yy = radius * Math.sin(angle);
+
+          switch (showTicks) {
+            case 'PRIMARY':
+              if ((value - min) % primaryTicksStep === 0) {
+                ctx.fillStyle = primaryTicksColor;
+                ctx.beginPath();
+                ctx.arc(x + xx, y + yy, primaryTicksRadius, 0, 2 * Math.PI);
+                ctx.fill();
+              }
+              break;
+            case 'SECONDARY':
+              ctx.fillStyle = secondaryTicksColor;
+              ctx.beginPath();
+              ctx.arc(x + xx, y + yy, secondaryTicksRadius, 0, 2 * Math.PI);
+              ctx.fill();
+              break;
+            case 'ALL':
+              var isPrimary = (value - min) % primaryTicksStep === 0;
+              ctx.fillStyle = isPrimary ? primaryTicksColor : secondaryTicksColor;
+              ctx.beginPath();
+              ctx.arc(x + xx, y + yy, isPrimary ? primaryTicksRadius : secondaryTicksRadius, 0, 2 * Math.PI);
+              ctx.fill();
+              break;
+          }
+        }
+      }
 
       var values = [];
       for (var knobN = 1; knobN <= numberOfKnobs; knobN++) {

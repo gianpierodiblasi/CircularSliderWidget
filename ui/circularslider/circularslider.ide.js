@@ -8,44 +8,50 @@ TW.IDE.Dialogs.CircularSliderCustomEditor = function () {
     var html =
             "<div class='CircularSliderCustomEditor_" + uid + "' style='" + style + ";position:absolute'>" +
             "  <div style='display:flex'>" +
-            "    <div style='margin-right:5px'>" +
-            "      <label for='CircularSliderCustomEditor_" + uid + "_sliderBackgroundColor'>sliderBackgroundColor</label>" +
-            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_sliderBackgroundColor' style='width:130px' class='CircularSliderCustomEditor_" + uid + "_sliderBackgroundColor' value='" + widgetObj.properties['sliderBackgroundColor'] + "'/>" +
-            "    </div>" +
-            "  </div>" +
-            "  <div style='display:flex'>" +
-            "    <div style='margin-right:5px'>" +
-            "      <label for='CircularSliderCustomEditor_" + uid + "_knobsBackgroundColor'>knobsBackgroundColor</label>" +
-            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobsBackgroundColor' style='width:130px' class='CircularSliderCustomEditor_" + uid + "_knobsBackgroundColor' value='" + widgetObj.properties['knobsBackgroundColor'] + "'/>" +
+            "    <div style='margin-right:140px'>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_sliderBackgroundColor'>sliderBackgroundColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_sliderBackgroundColor' style='width:140px' class='CircularSliderCustomEditor_" + uid + "_sliderBackgroundColor' value='" + widgetObj.properties['sliderBackgroundColor'] + "'/>" +
             "    </div>" +
             "    <div style='margin-right:5px'>" +
-            "      <label for='CircularSliderCustomEditor_" + uid + "_knobsFontColor'>knobsFontColor</label>" +
-            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobsFontColor' style='width:130px' class='CircularSliderCustomEditor_" + uid + "_knobsFontColor' value='" + widgetObj.properties['knobsFontColor'] + "'/>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_knobsBackgroundColor'>knobsBackgroundColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobsBackgroundColor' style='width:140px' class='CircularSliderCustomEditor_" + uid + "_knobsBackgroundColor' value='" + widgetObj.properties['knobsBackgroundColor'] + "'/>" +
             "    </div>" +
             "    <div style='margin-right:5px'>" +
-            "      <label for='CircularSliderCustomEditor_" + uid + "_knobsBorderColor'>knobsBorderColor</label>" +
-            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobsBorderColor' style='width:130px' class='CircularSliderCustomEditor_" + uid + "_knobsBorderColor' value='" + widgetObj.properties['knobsBorderColor'] + "'/>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_knobsFontColor'>knobsFontColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobsFontColor' style='width:140px' class='CircularSliderCustomEditor_" + uid + "_knobsFontColor' value='" + widgetObj.properties['knobsFontColor'] + "'/>" +
+            "    </div>" +
+            "    <div style='margin-right:5px'>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_knobsBorderColor'>knobsBorderColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobsBorderColor' style='width:140px' class='CircularSliderCustomEditor_" + uid + "_knobsBorderColor' value='" + widgetObj.properties['knobsBorderColor'] + "'/>" +
             "    </div>" +
             "    <div>" +
-            "      <label for='CircularSliderCustomEditor_" + uid + "_knobSelectedBorderColor'>knobSelectedBorderColor</label>" +
-            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobSelectedBorderColor' style='width:130px' class='CircularSliderCustomEditor_" + uid + "_knobSelectedBorderColor' value='" + widgetObj.properties['knobSelectedBorderColor'] + "'/>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_knobSelectedBorderColor'>knobSelectedBorderColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_knobSelectedBorderColor' style='width:140px' class='CircularSliderCustomEditor_" + uid + "_knobSelectedBorderColor' value='" + widgetObj.properties['knobSelectedBorderColor'] + "'/>" +
             "    </div>" +
             "  </div>" +
             "  <div style='display:flex'>" +
+            "    <div style='margin-right:140px'>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor'>valuesSummaryFontColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor' style='width:140px' class='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor' value='" + widgetObj.properties['valuesSummaryFontColor'] + "'/>" +
+            "    </div>" +
             "    <div style='margin-right:5px'>" +
-            "      <label for='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor'>valuesSummaryFontColor</label>" +
-            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor' style='width:130px' class='CircularSliderCustomEditor_" + uid + "_valuesSummaryFontColor' value='" + widgetObj.properties['valuesSummaryFontColor'] + "'/>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_primaryTicksColor'>primaryTicksColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_primaryTicksColor' style='width:140px' class='CircularSliderCustomEditor_" + uid + "_primaryTicksColor' value='" + widgetObj.properties['primaryTicksColor'] + "'/>" +
+            "    </div>" +
+            "    <div style='margin-right:5px'>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_secondaryTicksColor'>secondaryTicksColor</label>" +
+            "      <input type='color' id='CircularSliderCustomEditor_" + uid + "_secondaryTicksColor' style='width:140px' class='CircularSliderCustomEditor_" + uid + "_secondaryTicksColor' value='" + widgetObj.properties['secondaryTicksColor'] + "'/>" +
             "    </div>" +
             "  </div>" +
-            "  <div style='display:flex;height:34%'>" +
+            "  <div style='display:flex;height:38%;margin-top:10px'>" +
             "    <div style='margin-right:5px;width:100%;height:100%'>" +
-            "      <label for='CircularSliderCustomEditor_" + uid + "_knobsFormatFunction'>knobsFormatFunction</label>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_knobsFormatFunction'>knobsFormatFunction</label>" +
             "      <textarea id='CircularSliderCustomEditor_" + uid + "_knobsFormatFunction' style='width:100%;height:80%;resize:none;font-size:14px;font-family:monospaced;white-space:nowrap' class='CircularSliderCustomEditor_" + uid + "_knobsFormatFunction'>" + widgetObj.properties['knobsFormatFunction'] + "</textarea>" +
             "    </div>" +
             "  </div>" +
-            "  <div style='display:flex;height:34%'>" +
+            "  <div style='display:flex;height:38%'>" +
             "    <div style='margin-right:5px;width:100%;height:100%'>" +
-            "      <label for='CircularSliderCustomEditor_" + uid + "_valuesSummaryFormatFunction'>valuesSummaryFormatFunction</label>" +
+            "      <label style='font-weight:bold' for='CircularSliderCustomEditor_" + uid + "_valuesSummaryFormatFunction'>valuesSummaryFormatFunction</label>" +
             "      <textarea id='CircularSliderCustomEditor_" + uid + "_valuesSummaryFormatFunction' style='width:100%;height:80%;resize:none;font-size:14px;font-family:monospaced;white-space:nowrap' class='CircularSliderCustomEditor_" + uid + "_valuesSummaryFormatFunction'>" + widgetObj.properties['valuesSummaryFormatFunction'] + "</textarea>" +
             "    </div>" +
             "  </div>" +
@@ -65,6 +71,8 @@ TW.IDE.Dialogs.CircularSliderCustomEditor = function () {
     widgetObj.setProperty('valuesSummaryFontColor', $('.CircularSliderCustomEditor_' + uid + '_valuesSummaryFontColor').val());
     widgetObj.setProperty('knobsFormatFunction', $('.CircularSliderCustomEditor_' + uid + '_knobsFormatFunction').val());
     widgetObj.setProperty('valuesSummaryFormatFunction', $('.CircularSliderCustomEditor_' + uid + '_valuesSummaryFormatFunction').val());
+    widgetObj.setProperty('primaryTicksColor', $('.CircularSliderCustomEditor_' + uid + '_primaryTicksColor').val());
+    widgetObj.setProperty('secondaryTicksColor', $('.CircularSliderCustomEditor_' + uid + '_secondaryTicksColor').val());
     return true;
   };
 };
@@ -196,6 +204,56 @@ TW.IDE.Widgets.circularslider = function () {
             {value: 'STEP', text: 'Step'},
             {value: 'SMOOTH', text: 'Smooth'}
           ]
+        },
+        'showTicks': {
+          'isVisible': true,
+          'baseType': 'STRING',
+          'isEditable': true,
+          'description': 'Enables the ticks visualization',
+          'defaultValue': 'NO',
+          'selectOptions': [
+            {value: 'NO', text: 'No'},
+            {value: 'PRIMARY', text: 'Primary Ticks'},
+            {value: 'SECONDARY', text: 'Secondary Ticks'},
+            {value: 'ALL', text: 'All Ticks'}
+          ]
+        },
+        'primaryTicksStep': {
+          'description': 'The Step of the primary ticks',
+          'baseType': 'INTEGER',
+          'defaultValue': 10
+        },
+        'primaryTicksRadius': {
+          'description': 'The radius of the primary ticks',
+          'baseType': 'INTEGER',
+          'defaultValue': 5
+        },
+        'secondaryTicksRadius': {
+          'description': 'The radius of the secondary ticks',
+          'baseType': 'INTEGER',
+          'defaultValue': 2
+        },
+        'primaryTicksColor': {
+          'description': 'The color of the primary ticks',
+          'baseType': 'STRING',
+          'defaultValue': '#787878'
+        },
+        'secondaryTicksColor': {
+          'description': 'The color of the secondary ticks',
+          'baseType': 'STRING',
+          'defaultValue': '#787878'
+        },
+        'showTicksTooltip': {
+          'isVisible': true,
+          'baseType': 'BOOLEAN',
+          'isEditable': true,
+          'defaultValue': false,
+          'description': 'true to show the ticks tooltip'
+        },
+        'ticksTooltipFormatFunction': {
+          'description': 'The function to define the format of the ticks tooltip, the function has an input "value" and has to return a "result" value',
+          'baseType': 'STRING',
+          'defaultValue': 'result = value;'
         },
         'debugMode': {
           'isVisible': true,
