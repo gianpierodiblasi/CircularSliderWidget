@@ -236,7 +236,7 @@ TW.IDE.Widgets.circularslider = function () {
           ]
         },
         'primaryTicksStep': {
-          'description': 'The Step of the primary ticks',
+          'description': 'The step of the primary ticks',
           'baseType': 'INTEGER',
           'defaultValue': 10
         },
