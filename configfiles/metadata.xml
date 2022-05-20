@@ -4,7 +4,7 @@
     <ExtensionPackage 
       name="CircularSliderWidget"
       packageVersion="1.7.4"
-      vendor="Accenture Italy - Industry X"
+      vendor="Gianpiero Di Blasi"
       description="Extension to visualize a circular slider"
       minimumThingWorxVersion="8.3.0"
       dependsOn=""> 
