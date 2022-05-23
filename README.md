@@ -1,6 +1,8 @@
 # CircularSliderWidget
 An extension to visualize a circular slider.
 
+**This Extension is provided as-is and without warranty or support. It is not part of the PTC product suite and there is no PTC support.**
+
 ## Description
 This extension provides a widget to visualize a circular slider. The widget allows an high level of customization in colors, labels, tooltips, etc.
 
